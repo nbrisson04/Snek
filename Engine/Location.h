@@ -1,9 +1,9 @@
 #pragma once
 struct Location {
-	Location& operator+=(const Location& rhs) {
-		x += rhs.x;
-		y += rhs.y;
-	};
+	void Add(const Location& val) {
+		x += val.x;
+		y += val.y;
+	}
 	int x;
 	int y;
 };

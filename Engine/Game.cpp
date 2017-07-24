@@ -25,7 +25,9 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	brd(gfx) {}
+	brd(gfx),
+	snek({ 2,2 }),
+	delta_loc{ 0,1 } {}
 
 void Game::Go() {
 	gfx.BeginFrame();
@@ -34,6 +36,26 @@ void Game::Go() {
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel() {}
+void Game::UpdateModel() {
+	if (wnd.kbd.KeyIsPressed(VK_UP))
+		delta_loc = { 0,-1 };
+	else if (wnd.kbd.KeyIsPressed(VK_DOWN))
+		delta_loc = { 0,1 };
+	else if (wnd.kbd.KeyIsPressed(VK_LEFT))
+		delta_loc = { -1,0 };
+	else if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+		delta_loc = { 1,0 };
 
-void Game::ComposeFrame() {}
+	++snekMoveCounter;
+
+	if (snekMoveCounter >= snekMovePeriod) {
+		if (wnd.kbd.KeyIsPressed(VK_CONTROL))
+			snek.Grow();
+		snekMoveCounter = 0;
+		snek.MoveBy(delta_loc);
+	}
+}
+
+void Game::ComposeFrame() {
+	snek.Draw(brd);
+}

@@ -12,12 +12,14 @@ void Snek::MoveBy(const Location & delta_loc) {
 }
 
 void Snek::Grow() {
-	if (nSegments < nSegmentsMax)
+	if (nSegments < nSegmentsMax) {
+		segments[nSegments].InitBody();
 		++nSegments;
+	}
 }
 
 void Snek::Draw(Board & brd) const {
-	for (int i; i < nSegments; ++i)
+	for (int i=0; i < nSegments; ++i)
 		segments[i].Draw(brd);
 }
 
@@ -36,8 +38,9 @@ void Snek::Segment::Follow(const Segment& next) {
 
 void Snek::Segment::MoveBy(const Location & delta_loc) {
 	assert(abs(delta_loc.x) + abs(delta_loc.y) == 1);
-	loc += delta_loc;
+	loc.Add(delta_loc);
 }
+
 
 void Snek::Segment::Draw(Board& brd) const {
 	brd.DrawCell(loc, c);

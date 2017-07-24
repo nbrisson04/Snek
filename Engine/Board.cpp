@@ -1,16 +1,15 @@
 #include "Board.h"
 #include <assert.h>
 
-int Board::GetGridWidth() {return width;}
-int Board::GetGridHeight() {return height;}
+int Board::GetGridWidth() const { return width; }
+int Board::GetGridHeight() const { return height; }
 
-Board::Board(Graphics & gfx) :
-	gfx(gfx)
-{
+Board::Board(Graphics& gfx)
+	: gfx(gfx) {
 
 }
 
-void Board::DrawCell(Location& loc, Color c) {
+void Board::DrawCell(const Location& loc, const Color c) const {
 	assert(loc.x >= 0);
 	assert(loc.x < width);
 	assert(loc.y >= 0);

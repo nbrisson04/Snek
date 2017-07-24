@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Board.h"
+#include "Snek.h"
 #include <random>
 
 class Game
@@ -45,5 +46,9 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Board brd;
+	Snek snek;
+	Location delta_loc;
+	static constexpr int snekMovePeriod = 20;
+	int snekMoveCounter = 0;
 	/********************************/
 };
